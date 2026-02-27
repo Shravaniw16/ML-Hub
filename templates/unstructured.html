@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Unstructured Data Processing | ML Hub</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f1224;
+      color: #fff;
+      padding: 40px;
+    }
+
+    .card {
+      max-width: 600px;
+      margin: auto;
+      background: #1b1f3b;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #ffd369;
+    }
+
+    input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #ffd369;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:disabled {
+      background: #888;
+      cursor: not-allowed;
+    }
+
+    .status {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #cfd2ff;
+      text-align: center;
+    }
+
+    .preview {
+      margin-top: 20px;
+      background: #0f1224;
+      padding: 15px;
+      border-radius: 6px;
+      font-size: 13px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h2>Unstructured Data Processing</h2>
+
+    <form id="unstructuredForm">
+      <input type="file" id="textFile" accept=".txt,.csv" required />
+      <button type="submit">Upload & Clean Data</button>
+    </form>
+
+    <button id="downloadCsvBtn" disabled>
+      Download Clean CSV
+    </button>
+
+    <div class="status" id="statusMsg"></div>
+
+    <div class="preview" id="previewBox" style="display:none;"></div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/unstructured.js') }}"></script>
+</body>
+</html>

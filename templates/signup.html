@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up | ML Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ✅ Flask static CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+</head>
+
+<body>
+
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Create Account</h2>
+    <p class="subtitle">Join ML Hub and start training models</p>
+
+    <form id="signupForm">
+      <input type="text" id="name" placeholder="Full Name" required>
+      <input type="email" id="email" placeholder="Email Address" required>
+      <input type="password" id="password" placeholder="Password" required>
+
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <p class="switch">
+      Already have an account?
+      <a href="/login-page">Login</a>
+    </p>
+  </div>
+</div>
+
+<script>
+document.getElementById("signupForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  try {
+    const response = await fetch("/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ name, email, password })
+    });
+
+    const data = await response.json();
+
+    if (data.message) {
+      alert("Signup successful! Please login.");
+      window.location.href = "/login-page";
+    } else if (data.error) {
+      alert(data.error);
+    }
+
+  } catch (err) {
+    alert("Server error. Try again.");
+    console.error(err);
+  }
+});
+</script>
+
+</body>
+</html>

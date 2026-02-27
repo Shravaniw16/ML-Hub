@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel - ML Hub</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<h1 style="text-align:center">Admin Dashboard</h1>
+
+<div class="admin-section">
+  <h2>Users</h2>
+  <table id="usersTable"></table>
+</div>
+
+<div class="admin-section">
+  <h2>Datasets</h2>
+  <table id="datasetsTable"></table>
+</div>
+
+<div class="admin-section">
+  <h2>Trained Models</h2>
+  <table id="modelsTable"></table>
+</div>
+
+<script>
+async function loadData(url, tableId) {
+  const res = await fetch(url, { credentials: "include" });
+  const data = await res.json();
+
+  if (data.length === 0) {
+    document.getElementById(tableId).innerHTML = "<tr><td>No data</td></tr>";
+    return;
+  }
+
+  let html = "<tr>";
+  Object.keys(data[0]).forEach(k => html += `<th>${k}</th>`);
+  html += "</tr>";
+
+  data.forEach(row => {
+    html += "<tr>";
+    Object.values(row).forEach(v => html += `<td>${v}</td>`);
+    html += "</tr>";
+  });
+
+  document.getElementById(tableId).innerHTML = html;
+}
+
+loadData("/admin/users", "usersTable");
+loadData("/admin/datasets", "datasetsTable");
+loadData("/admin/models", "modelsTable");
+</script>
+
+</body>
+</html>

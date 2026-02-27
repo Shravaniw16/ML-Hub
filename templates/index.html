@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ML Hub – Smart Data Analysis Tool</title>
+
+  <!-- ✅ FLASK STATIC CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<script>
+  if (!localStorage.getItem("loggedIn")) {
+    window.location.href = "/login-page";
+  }
+</script>
+
+<script>
+function logout() {
+  fetch("/logout", { credentials: "include" })
+    .then(() => window.location.href = "/login-page");
+}
+</script>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">ML Hub</div>
+  <ul class="nav-links">
+    <li><a href="/" class="active">Home</a></li>
+    
+    <li><a href="/my-models-page">My Models</a></li>
+    
+    <li><a href="/dashboard-page">Dashboard</a></li>
+    <li><a href="/powerbi-page">Visualization</a></li>
+    <li><a href="#" onclick="logout()" class="logout-btn">Logout</a></li>
+  </ul>
+</nav>
+
+<!-- UPLOAD SECTION -->
+<section class="upload-card">
+  <h2>Upload Your Data</h2>
+  <p class="subtext">
+    ML Hub supports structured datasets, audio, and video files for intelligent analysis.
+  </p>
+
+  <div class="file-types">
+    <span>CSV</span>
+    <span>Audio</span>
+    <span>Video</span>
+  </div>
+
+  <form id="uploadForm">
+    <input type="file" id="fileInput" accept=".csv" required>
+    <button type="submit">Analyze Data</button>
+  </form>
+</section>
+
+<!-- FEATURES SECTION -->
+<section class="features">
+  <h2 class="section-heading">Why ML Hub?</h2>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <h3>Auto Data Analysis</h3>
+      <p>Detect missing values, duplicates, imbalance & schema issues instantly.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>AutoML Training</h3>
+      <p>Select target, choose model & get best accuracy automatically.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>Smart Visualization</h3>
+      <p>See data patterns through histograms, correlation heatmaps & insights.</p>
+    </div>
+  </div>
+</section>
+
+<!-- IMAGE SHOWCASE -->
+<section class="image-section">
+  <h2 class="section-heading">Power of Machine Learning</h2>
+
+  <div class="image-grid">
+    <div class="img-card">
+      <img src="{{ url_for('static', filename='images/ml-banner.jpg') }}" alt="ML Banner">
+    </div>
+
+    <div class="img-card">
+      <img src="{{ url_for('static', filename='images/ai-brain.jpg') }}" alt="AI Brain">
+    </div>
+
+    <div class="img-card">
+      <img src="{{ url_for('static', filename='images/data-science.jpg') }}" alt="Data Science">
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO SECTION -->
+<section class="ml-video-section">
+  <h2 class="section-heading">What Does ML Hub Do?</h2>
+  <p class="section-subtitle">
+    A quick visual explanation of how ML turns data into predictions
+  </p>
+
+  <div class="video-wrapper">
+    <video controls preload="auto">
+      <source src="{{ url_for('static', filename='videos/explain.mp4') }}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</section>
+
+<!-- ✅ FLASK STATIC JS -->
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<!-- ===============================
+     FOOTER
+================================ -->
+<footer class="footer">
+  <div class="footer-container">
+
+    <!-- Brand -->
+    <div class="footer-section">
+      <h2 class="footer-logo">ML Hub</h2>
+      <p class="footer-text">
+        Smart Data Analysis & AutoML Platform designed for students,
+        researchers, and developers.
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-section">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/index-page">Upload</a></li>
+        <li><a href="/analysis-page">Analysis</a></li>
+        <li><a href="/train-page">Train Model</a></li>
+        <li><a href="/my-models-page">My Models</a></li>
+        <li><a href="/report-page">Reports</a></li>
+      </ul>
+    </div>
+
+    <!-- Features -->
+    <div class="footer-section">
+      <h3>Features</h3>
+      <ul>
+        <li>Automatic Data Analysis</li>
+        <li>Data Visualization</li>
+        <li>AutoML Training</li>
+        <li>Model Evaluation</li>
+        <li>Performance Reports</li>
+      </ul>
+    </div>
+
+    <!-- Project Info -->
+    <div class="footer-section">
+      <h3>Project Info</h3>
+      <p>Built using Flask & Machine Learning</p>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 <b>ML Hub</b> | All Rights Reserved
+  </div>
+</footer>
+
+</body>
+</html>

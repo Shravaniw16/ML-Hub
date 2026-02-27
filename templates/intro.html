@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ML Hub – Smart Analysis Platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/intro.css') }}">
+</head>
+
+<body>
+<!-- Top Right Login Button -->
+<div class="top-login">
+  <a href="/login-page">Login</a>
+</div>
+
+  <!-- ===============================
+       HERO VIDEO SECTION
+  ================================ -->
+  <div class="hero">
+
+    <!-- Background Video -->
+    <video autoplay muted loop playsinline class="hero-video">
+      <source src="{{ url_for('static', filename='videos/intro.mp4') }}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <!-- Overlay -->
+    <div class="overlay"></div>
+
+    <!-- Content -->
+    <div class="content">
+
+      <span class="badge reveal delay-1">
+        AI • Data Science • ML Platform
+      </span>
+
+      <h1 class="reveal delay-2">ML Hub</h1>
+
+      <h2 class="reveal delay-3">
+        Smart Analysis Platform for
+        <span>Data</span>, <span>Audio</span> & <span>Video</span>
+      </h2>
+
+      <p class="desc reveal delay-4">
+        ML Hub is an intelligent, unified platform designed to automate dataset analysis,
+        simplify machine learning workflows, and perform multimedia feature extraction
+        with minimal user effort.
+      </p>
+
+      <div class="features reveal delay-5">
+        <div class="pill">Auto Data Analysis</div>
+        <div class="pill">AutoML Training</div>
+        <div class="pill">Audio Features</div>
+        <div class="pill">Video Metadata</div>
+      </div>
+
+      <button class="reveal delay-6" onclick="startApp()">
+        Get Started →
+      </button>
+
+    </div>
+  </div>
+
+  <script>
+    function startApp() {
+      document.body.classList.add("exit");
+      setTimeout(() => {
+        window.location.href = "/index-page";
+      }, 400);
+    }
+  </script>
+
+</body>
+</html>

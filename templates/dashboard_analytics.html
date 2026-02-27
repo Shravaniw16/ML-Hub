@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dataset Analytics - ML Hub</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<nav class="navbar">
+  <div class="logo">ML Hub</div>
+  <div class="nav-links">
+    <a href="/dashboard-page">Dashboard</a>
+    <a href="/analysis-page">Analysis</a>
+    <a href="/train-page">Train</a>
+  </div>
+</nav>
+
+<div class="container">
+  <h2>Dataset Analytics Dashboard</h2>
+
+  <!-- KPI CARDS -->
+  <div class="cards">
+    <div class="card">
+      <h3>Total Records</h3>
+      <p id="totalRows">--</p>
+    </div>
+
+    <div class="card">
+      <h3>Total Columns</h3>
+      <p id="totalColumns">--</p>
+    </div>
+  </div>
+
+  <!-- CHARTS -->
+  <div class="chart-grid">
+    <div class="chart-card">
+      <h4>Category Count</h4>
+      <canvas id="barChart"></canvas>
+    </div>
+
+    <div class="chart-card">
+      <h4>Category Distribution</h4>
+      <canvas id="pieChart"></canvas>
+    </div>
+  </div>
+
+  <!-- DOWNLOAD -->
+  <div style="margin-top:30px">
+    <button class="btn" onclick="downloadCleaned()">
+      ⬇ Download Clean Dataset
+    </button>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/dashboard_analytics.js') }}"></script>
+<script>
+fetch("/dashboard-dataset-data", { credentials: "include" })
+  .then(res => res.json())
+  .then(data => {
+    if (data.error) {
+      alert(data.error);
+      return;
+    }
+
+    document.getElementById("totalRecords").innerText = data.total_rows;
+    document.getElementById("totalColumns").innerText = data.columns.length;
+
+    if (data.label_distribution) {
+      console.log("Label Distribution:", data.label_distribution);
+      // Later: chart.js or bar graph
+    }
+  });
+</script>
+
+</body>
+</html>

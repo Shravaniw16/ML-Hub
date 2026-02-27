@@ -1,0 +1,16 @@
+CustomerID,Gender,SubscriptionType,TenureMonths,MonthlySpend,TotalSpend,SupportCalls,Churn
+C001,Male,Premium,24,1200,28800,1,NO
+C002,Female,Basic,12,600,7200,3,YES
+C003,Male,Standard,36,800,28800,0,NO
+C004,Female,Premium,6,1300,7800,4,YES
+C005,Male,Basic,18,550,9900,2,NO
+C006,Female,Standard,30,750,22500,1,NO
+C007,Male,Premium,9,1400,12600,5,YES
+C008,Female,Basic,15,500,7500,3,YES
+C009,Male,Standard,48,900,43200,0,NO
+C010,Female,Premium,20,1250,25000,1,NO
+C011,Male,Basic,10,580,5800,4,YES
+C012,Female,Standard,28,820,22960,1,NO
+C013,Male,Premium,40,1350,54000,0,NO
+C014,Female,Basic,8,520,4160,5,YES
+C015,Male,Standard,22,780,17160,2,NO

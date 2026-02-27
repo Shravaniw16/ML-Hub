@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ML Hub | Dataset Analysis</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <h2>Dataset Analysis Dashboard</h2>
+    <p>Unified analysis for tabular datasets</p>
+  </header>
+
+  <div class="container">
+
+    <!-- SUMMARY CARDS -->
+    <section class="cards">
+      <div class="card">
+        <h3>Total Rows</h3>
+        <p id="totalRows">--</p>
+      </div>
+
+      <div class="card">
+        <h3>Total Columns</h3>
+        <p id="totalColumns">--</p>
+      </div>
+
+      <div class="card">
+        <h3>Missing Values (%)</h3>
+        <p id="missingPercent">--</p>
+      </div>
+
+      <div class="card">
+        <h3>Duplicate Rows</h3>
+        <p id="duplicateRows">--</p>
+      </div>
+
+      <div class="card highlight">
+        <h3>Data Health Score</h3>
+        <p id="healthScore">-- / 100</p>
+      </div>
+    </section>
+
+    <!-- DATASET PREVIEW -->
+    <section class="preview">
+      <h3>Dataset Preview</h3>
+      <table>
+        <thead>
+          <tr id="previewHead"></tr>
+        </thead>
+        <tbody id="previewBody"></tbody>
+      </table>
+    </section>
+<div class="section-box">
+  <h3>Data Visualizations</h3>
+  <div id="chartGrid" class="image-grid"></div>
+</div>
+<!-- DATA CLEANING -->
+<section class="section-box">
+  <h3>Data Cleaning</h3>
+  <p>
+    This step removes duplicate records, handles missing values,
+    and prepares a clean dataset for model training.
+  </p>
+<div class="cleaning-right">
+  <button id="cleanUnstructuredBtn" class="btn-primary">
+  Clean Data
+</button>
+
+<button id="downloadCleanUnstructuredBtn"
+        class="btn-primary"
+        disabled>
+  Download Clean CSV
+</button>
+</div>
+<p id="cleanStatus"></p>
+
+</section>
+
+
+
+<!-- ===============================
+     VIDEO ANALYSIS
+================================ -->
+<section id="videoSection" class="section-box" style="display:none;">
+  <h3>🎥 Video Analysis</h3>
+
+  <table class="data-table">
+    <tr>
+      <th>Duration (seconds)</th>
+      <td id="videoDuration">--</td>
+    </tr>
+    <tr>
+      <th>FPS</th>
+      <td id="videoFPS">--</td>
+    </tr>
+    <tr>
+      <th>Resolution</th>
+      <td id="videoResolution">--</td>
+    </tr>
+    <tr>
+      <th>Frames Count</th>
+      <td id="videoFrames">--</td>
+    </tr>
+  </table>
+</section>
+<!-- ===============================
+     AUDIO ANALYSIS
+================================ -->
+<section id="audioSection" class="section-box" style="display:none;">
+  <h3>🎧 Audio Analysis</h3>
+
+  <table class="data-table">
+    <tr>
+      <th>Duration (seconds)</th>
+      <td id="audioDuration">--</td>
+    </tr>
+    <tr>
+      <th>Sample Rate (Hz)</th>
+      <td id="audioSampleRate">--</td>
+    </tr>
+    <tr>
+      <th>Channels</th>
+      <td id="audioChannels">--</td>
+    </tr>
+    <tr>
+      <th>Loudness (RMS)</th>
+      <td id="audioLoudness">--</td>
+    </tr>
+    <tr>
+      <th>Zero Crossing Rate</th>
+      <td id="audioZCR">--</td>
+    </tr>
+  </table>
+</section>
+
+    <!-- PROCEED BUTTON -->
+    <div class="button-box">
+      <a href="/train-page" class="btn">Proceed to Model Training →</a>
+    </div>
+
+  </div>
+
+  <!-- JS -->
+  <script src="{{ url_for('static', filename='js/analysis.js') }}"></script>
+<!-- ===============================
+     FOOTER
+================================ -->
+<footer class="footer">
+  <div class="footer-container">
+
+    <!-- Brand -->
+    <div class="footer-section">
+      <h2 class="footer-logo">ML Hub</h2>
+      <p class="footer-text">
+        Smart Data Analysis & AutoML Platform designed for students,
+        researchers, and developers.
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-section">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/index-page">Upload</a></li>
+        <li><a href="/analysis-page">Analysis</a></li>
+        <li><a href="/train-page">Train Model</a></li>
+        <li><a href="/my-models-page">My Models</a></li>
+        <li><a href="/report-page">Reports</a></li>
+      </ul>
+    </div>
+
+    <!-- Features -->
+    <div class="footer-section">
+      <h3>Features</h3>
+      <ul>
+        <li>Automatic Data Analysis</li>
+        <li>Data Visualization</li>
+        <li>AutoML Training</li>
+        <li>Model Evaluation</li>
+        <li>Performance Reports</li>
+      </ul>
+    </div>
+
+    <!-- Project Info -->
+    <div class="footer-section">
+      <h3>Project Info</h3>
+      
+      <p>Built using Flask & Machine Learning</p>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 <b>ML Hub</b> | All Rights Reserved
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Train Model - ML Hub</title>
+
+    <!-- ✅ Flask static CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<!-- 🔒 LOGIN CHECK -->
+<script>
+  if (!localStorage.getItem("loggedIn")) {
+    window.location.href = "/login-page";
+  }
+</script>
+
+<header class="report-header">
+    <h1>Model Training</h1>
+    <p>Configure and train your machine learning model</p>
+</header>
+
+<div class="train-container">
+
+    <!-- TARGET COLUMN -->
+    <div class="section">
+        <label class="section-title">Target Column</label>
+        <select id="targetColumn" class="small-dropdown">
+            <option value="">-- Select Column --</option>
+        </select>
+    </div>
+
+    <!-- MODEL TYPE -->
+    <div class="section">
+        <label class="section-title">Prediction Type</label>
+        <div class="model-type-row">
+
+            <label class="type-small-card">
+                <input type="radio" name="modelType" value="classification" checked>
+                <b>Classification</b>
+                <span>Category prediction</span>
+            </label>
+
+            <label class="type-small-card">
+                <input type="radio" name="modelType" value="regression" checked>
+                <b>Regression</b>
+                <span>Number prediction</span>
+            </label>
+
+            <label class="type-small-card">
+                <input type="radio" name="modelType" value="clustering" checked>
+                <b>Clustering</b>
+                <span>Auto-grouping</span>
+            </label>
+
+        </div>
+    </div>
+
+    <!-- SELECT MODEL -->
+    <div class="section">
+        <label class="section-title">Select Model</label>
+        <select id="modelSelect" class="small-dropdown">
+            <option value="">-- Choose Model --</option>
+        </select>
+    </div>
+
+    <!-- HYPERPARAMETERS -->
+    <div class="section">
+        <label class="section-title">Hyperparameters (Optional)</label>
+        <input type="number" placeholder="Epochs (20)" class="small-input">
+        <input type="number" placeholder="Learning rate (0.01)" class="small-input">
+    </div>
+
+    <!-- BUTTON -->
+    <div class="btn-center">
+        <button class="btn-compact" onclick="startTraining()">Start Training</button>
+    </div>
+
+    <!-- LOADING -->
+    <div id="loadingBox" class="compact-loading" style="display:none;">
+        <div class="small-spinner"></div>
+        <p>Training…</p>
+    </div>
+
+</div>
+
+<!-- ✅ Flask static JS -->
+<script src="{{ url_for('static', filename='js/train.js') }}"></script>
+<!-- ===============================
+     FOOTER
+================================ -->
+<footer class="footer">
+  <div class="footer-container">
+
+    <!-- Brand -->
+    <div class="footer-section">
+      <h2 class="footer-logo">ML Hub</h2>
+      <p class="footer-text">
+        Smart Data Analysis & AutoML Platform designed for students,
+        researchers, and developers.
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-section">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/index-page">Upload</a></li>
+        <li><a href="/analysis-page">Analysis</a></li>
+        <li><a href="/train-page">Train Model</a></li>
+        <li><a href="/my-models-page">My Models</a></li>
+        <li><a href="/report-page">Reports</a></li>
+      </ul>
+    </div>
+
+    <!-- Features -->
+    <div class="footer-section">
+      <h3>Features</h3>
+      <ul>
+        <li>Automatic Data Analysis</li>
+        <li>Data Visualization</li>
+        <li>AutoML Training</li>
+        <li>Model Evaluation</li>
+        <li>Performance Reports</li>
+      </ul>
+    </div>
+
+    <!-- Project Info -->
+    <div class="footer-section">
+      <h3>Project Info</h3>
+      
+      <p>Built using Flask & Machine Learning</p>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 <b>ML Hub</b> | All Rights Reserved
+  </div>
+</footer>
+
+</body>
+</html>

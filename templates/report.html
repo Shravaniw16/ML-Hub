@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Model Report - ML Hub</title>
+
+    <!-- ✅ Flask static CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header class="report-header">
+    <h1>Model Performance Report</h1>
+    <p>Summary of trained machine learning model</p>
+</header>
+
+<div class="report-container">
+
+    <!-- ================= SUMMARY ================= -->
+    <div class="report-card">
+        <h2 class="section-title">Model Performance Summary</h2>
+
+        <div class="metric-grid">
+            <div class="metric-box">
+                <h3>Accuracy</h3>
+                <p id="accuracy">--</p>
+            </div>
+            <div class="metric-box">
+                <h3>Precision</h3>
+                <p id="precision">--</p>
+            </div>
+            <div class="metric-box">
+                <h3>Recall</h3>
+                <p id="recall">--</p>
+            </div>
+            <div class="metric-box">
+                <h3>F1 Score</h3>
+                <p id="f1score">--</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= CONFUSION MATRIX ================= -->
+    <div class="report-card">
+        <h2 class="section-title">Confusion Matrix</h2>
+        <img id="confusionMatrix" class="report-image" style="display:none;">
+    </div>
+
+    <!-- ================= FEATURE IMPORTANCE ================= -->
+    <div class="report-card" id="featureImportanceSection">
+        <h2 class="section-title">Feature Importance</h2>
+        <img id="featureImportance" class="report-image" style="display:none;">
+    </div>
+
+    <!-- ================= METRICS TABLE ================= -->
+    <div class="report-card">
+        <h2 class="section-title">Metrics Table</h2>
+
+        <table class="metrics-table">
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody id="metricsTableBody"></tbody>
+        </table>
+    </div>
+
+    
+
+    <!-- ================= BUTTONS ================= -->
+    <div class="report-buttons">
+        <button class="btn-outline" onclick="window.location.href='/train-page'">
+            Train Again
+        </button>
+        <button class="btn-compact" onclick="downloadReport()">
+            ⬇ Download Report
+        </button>
+    </div>
+
+</div>
+
+<!-- ✅ Flask static JS -->
+<script src="{{ url_for('static', filename='js/report.js') }}"></script>
+<!-- ===============================
+     FOOTER
+================================ -->
+<footer class="footer">
+  <div class="footer-container">
+
+    <!-- Brand -->
+    <div class="footer-section">
+      <h2 class="footer-logo">ML Hub</h2>
+      <p class="footer-text">
+        Smart Data Analysis & AutoML Platform designed for students,
+        researchers, and developers.
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-section">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/index-page">Upload</a></li>
+        <li><a href="/analysis-page">Analysis</a></li>
+        <li><a href="/train-page">Train Model</a></li>
+        <li><a href="/my-models-page">My Models</a></li>
+        <li><a href="/report-page">Reports</a></li>
+      </ul>
+    </div>
+
+    <!-- Features -->
+    <div class="footer-section">
+      <h3>Features</h3>
+      <ul>
+        <li>Automatic Data Analysis</li>
+        <li>Data Visualization</li>
+        <li>AutoML Training</li>
+        <li>Model Evaluation</li>
+        <li>Performance Reports</li>
+      </ul>
+    </div>
+
+    <!-- Project Info -->
+    <div class="footer-section">
+      <h3>Project Info</h3>
+      
+      <p>Built using Flask & Machine Learning</p>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 <b>ML Hub</b> | All Rights Reserved
+  </div>
+</footer>
+
+</body>
+</html>

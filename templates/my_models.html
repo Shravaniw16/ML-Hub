@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Models | ML Hub</title>
+
+  <!-- Flask static CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <style>
+    /* ===== PAGE ENHANCEMENTS (SAFE INLINE) ===== */
+
+    body {
+      background: #f4f6fb;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      margin-bottom: 8px;
+      font-size: 26px;
+    }
+
+    .subtitle {
+      color: #6b7280;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .data-table thead {
+      background: #f1f5f9;
+    }
+
+    .data-table th {
+      padding: 14px;
+      text-align: left;
+      font-size: 14px;
+      color: #334155;
+    }
+
+    .data-table td {
+      padding: 14px;
+      font-size: 14px;
+      border-top: 1px solid #e5e7eb;
+      color: #475569;
+    }
+
+    .data-table tbody tr:hover {
+      background: #f8fafc;
+    }
+
+    .model-badge {
+      background: #e0f2fe;
+      color: #0369a1;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .metric {
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 30px;
+      color: #9ca3af;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">ML Hub</div>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    
+    <a href="/my-models-page" class="active">My Models</a>
+    
+    <a href="#" onclick="logout()">Logout</a>
+  </div>
+</nav>
+
+<!-- PAGE CONTENT -->
+<div class="container">
+  <h2> My Trained Models</h2>
+  <p class="subtitle">
+    View performance metrics of all trained machine learning models
+  </p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Dataset</th>
+        <th>Model</th>
+        <th>Accuracy</th>
+        <th>Precision</th>
+        <th>Recall</th>
+        <th>F1</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+
+    <tbody id="modelsBody">
+      <tr>
+        <td colspan="7" class="empty">Loading models...</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Flask static JS -->
+<script src="{{ url_for('static', filename='js/my_models.js') }}"></script>
+
+<script>
+function logout() {
+  fetch("/logout", { credentials: "include" })
+    .then(() => {
+      localStorage.removeItem("loggedIn");
+      window.location.href = "/login-page";
+    });
+}
+</script>
+<!-- ===============================
+     FOOTER
+================================ -->
+<footer class="footer">
+  <div class="footer-container">
+
+    <!-- Brand -->
+    <div class="footer-section">
+      <h2 class="footer-logo">ML Hub</h2>
+      <p class="footer-text">
+        Smart Data Analysis & AutoML Platform designed for students,
+        researchers, and developers.
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-section">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/index-page">Upload</a></li>
+        <li><a href="/analysis-page">Analysis</a></li>
+        <li><a href="/train-page">Train Model</a></li>
+        <li><a href="/my-models-page">My Models</a></li>
+        <li><a href="/report-page">Reports</a></li>
+      </ul>
+    </div>
+
+    <!-- Features -->
+    <div class="footer-section">
+      <h3>Features</h3>
+      <ul>
+        <li>Automatic Data Analysis</li>
+        <li>Data Visualization</li>
+        <li>AutoML Training</li>
+        <li>Model Evaluation</li>
+        <li>Performance Reports</li>
+      </ul>
+    </div>
+
+    <!-- Project Info -->
+    <div class="footer-section">
+      <h3>Project Info</h3>
+      
+      <p>Built using Flask & Machine Learning</p>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 <b>ML Hub</b> | All Rights Reserved
+  </div>
+</footer>
+
+</body>
+</html>

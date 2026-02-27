@@ -1,0 +1,276 @@
+/* ===============================
+   GLOBAL
+=============================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", "Inter", sans-serif;
+}
+
+body {
+  overflow: hidden;
+  background: #000;
+}
+
+/* ===============================
+   HERO SECTION
+=============================== */
+
+.hero {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+}
+
+/* Video */
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Overlay (Corporate cinematic) */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.65),
+    rgba(0, 0, 0, 0.4),
+    rgba(0, 0, 0, 0.65)
+  );
+}
+
+/* ===============================
+   CONTENT
+=============================== */
+
+.content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  padding-left: 8%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 700px;
+  color: #ffffff;
+}
+
+/* Badge */
+.badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-size: 13px;
+  letter-spacing: 0.6px;
+  width: fit-content;
+  margin-bottom: 20px;
+}
+
+/* Headings */
+h1 {
+  font-size: 64px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  color: #e5e7eb;
+}
+
+h2 span {
+  color: #60a5fa;
+  font-weight: 600;
+}
+
+/* Description */
+.desc {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #d1d5db;
+  margin-bottom: 30px;
+}
+
+/* Features */
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 35px;
+}
+
+.pill {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+/* Button */
+button {
+  padding: 14px 30px;
+  font-size: 15px;
+  font-weight: 600;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  width: fit-content;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background: #1e40af;
+  transform: translateY(-2px);
+}
+
+/* ===============================
+   REVEAL ANIMATION
+=============================== */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(15px);
+  animation: reveal 0.8s ease forwards;
+}
+
+.delay-1 { animation-delay: 0.3s; }
+.delay-2 { animation-delay: 0.6s; }
+.delay-3 { animation-delay: 0.9s; }
+.delay-4 { animation-delay: 1.2s; }
+.delay-5 { animation-delay: 1.5s; }
+.delay-6 { animation-delay: 1.8s; }
+
+@keyframes reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Exit animation */
+body.exit {
+  animation: fadeOut 0.4s forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
+/* ===============================
+   RESPONSIVE
+=============================== */
+
+@media (max-width: 768px) {
+  .content {
+    padding: 0 8%;
+    text-align: center;
+    align-items: center;
+  }
+
+  h1 {
+    font-size: 42px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+}
+/* ===============================
+   ENTERPRISE POLISH – ML HUB
+=============================== */
+
+/* Reduce visual noise */
+.hero {
+  background-position: center;
+  background-size: cover;
+}
+
+/* Headline – calmer, confident */
+.hero h1 {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Subheading – research tone */
+.hero h2 {
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+/* Paragraph – controlled width (very important) */
+.hero .desc {
+  max-width: 620px;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+
+/* Feature pills – enterprise, not playful */
+.pill {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6px);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Button – corporate confidence */
+.hero button {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
+  font-weight: 600;
+}
+
+.hero button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.45);
+}
+
+/* Badge – subtle */
+.badge {
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 12px;
+  letter-spacing: 0.6px;
+}
+/* ===============================
+   TOP RIGHT LOGIN BUTTON
+=============================== */
+
+.top-login {
+  position: absolute;
+  top: 25px;
+  right: 40px;
+  z-index: 5;
+}
+
+.top-login a {
+  text-decoration: none;
+  padding: 10px 22px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+}
+
+.top-login a:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+}

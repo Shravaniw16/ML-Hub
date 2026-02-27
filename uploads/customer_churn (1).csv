@@ -1,0 +1,11 @@
+Age,MonthlyCharges,Tenure,ContractType,InternetService,Churn
+25,70,12,Month-to-month,Fiber optic,Yes
+45,90,24,One year,DSL,No
+30,50,6,Month-to-month,DSL,Yes
+50,110,36,Two year,Fiber optic,No
+23,40,3,Month-to-month,None,Yes
+35,65,18,One year,DSL,No
+60,120,48,Two year,Fiber optic,No
+28,55,9,Month-to-month,DSL,Yes
+42,80,30,One year,Fiber optic,No
+33,60,15,Month-to-month,DSL,Yes

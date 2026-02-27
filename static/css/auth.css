@@ -1,0 +1,170 @@
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 420px;
+  padding: 20px;
+}
+
+.auth-card {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  text-align: center;
+}
+
+.auth-card h2 {
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.subtitle {
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.auth-card input:focus {
+  border-color: #4f46e5;
+  outline: none;
+}
+
+.auth-card button {
+  width: 100%;
+  padding: 12px;
+  background: #4f46e5;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.auth-card button:hover {
+  background: #4338ca;
+}
+
+.switch {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.switch a {
+  color: #4f46e5;
+  text-decoration: none;
+  font-weight: 500;
+}
+/* ===============================
+   AUTH PAGES (LOGIN / SIGNUP)
+   =============================== */
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #4f46e5, #0f172a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+/* ===============================
+   CONTAINER
+   =============================== */
+.auth-container {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+  color: white;
+}
+
+/* ===============================
+   BRAND
+   =============================== */
+.brand {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.brand h1 {
+  font-size: 34px;
+  margin: 0;
+}
+
+.brand p {
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+/* ===============================
+   FORM
+   =============================== */
+.auth-container input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.auth-container button {
+  width: 100%;
+  padding: 12px;
+  background: #6366f1;
+  border: none;
+  color: white;
+  font-size: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.auth-container button:hover {
+  background: #4f46e5;
+}
+
+/* ===============================
+   LINKS
+   =============================== */
+.auth-container a {
+  color: #c7d2fe;
+  text-decoration: none;
+}
+
+.auth-container a:hover {
+  text-decoration: underline;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 13px;
+  opacity: 0.85;
+}

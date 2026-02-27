@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard - ML Hub</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<nav class="ml-navbar">
+  <div class="nav-left">
+    <span class="logo">ML Hub</span>
+  </div>
+
+  <ul class="nav-links">
+    <li class="active"><a href="/">Home</a></li>
+    
+    <li><a href="/powerbi-page">Visualization</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <a href="/logout" class="logout-btn">Logout</a>
+  </div>
+</nav>
+
+
+<div class="container">
+  <h2>Dashboard Overview</h2>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Total Datasets</h3>
+      <p id="datasets">--</p>
+    </div>
+
+    <div class="card">
+      <h3>Total Models</h3>
+      <p id="models">--</p>
+    </div>
+
+    <div class="card">
+      <h3>Best Accuracy</h3>
+      <p id="accuracy">--</p>
+    </div>
+
+    <div class="card">
+      <h3>Last Trained Model</h3>
+      <p id="lastModel">--</p>
+    </div>
+  </div>
+</div>
+
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+<script>
+function logout() {
+  fetch("/logout", { credentials: "include" })
+    .then(() => window.location.href = "/login-page");
+}
+</script>
+<!-- ===============================
+     FOOTER
+================================ -->
+<footer class="footer">
+  <div class="footer-container">
+
+    <!-- Brand -->
+    <div class="footer-section">
+      <h2 class="footer-logo">ML Hub</h2>
+      <p class="footer-text">
+        Smart Data Analysis & AutoML Platform designed for students,
+        researchers, and developers.
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-section">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/index-page">Upload</a></li>
+        <li><a href="/analysis-page">Analysis</a></li>
+        <li><a href="/train-page">Train Model</a></li>
+        <li><a href="/my-models-page">My Models</a></li>
+        <li><a href="/report-page">Reports</a></li>
+      </ul>
+    </div>
+
+    <!-- Features -->
+    <div class="footer-section">
+      <h3>Features</h3>
+      <ul>
+        <li>Automatic Data Analysis</li>
+        <li>Data Visualization</li>
+        <li>AutoML Training</li>
+        <li>Model Evaluation</li>
+        <li>Performance Reports</li>
+      </ul>
+    </div>
+
+    <!-- Project Info -->
+    <div class="footer-section">
+      <h3>Project Info</h3>
+      
+      <p>Built using Flask & Machine Learning</p>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 <b>ML Hub</b> | All Rights Reserved
+  </div>
+</footer>
+
+</body>
+</html>

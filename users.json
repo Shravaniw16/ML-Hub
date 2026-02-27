@@ -1,0 +1,25 @@
+[
+  {
+    "name": "Shravani",
+    "email": "abc@gmail.com",
+    "password": "12345"
+  },
+  {
+    "name": "Bob",
+    "email": "bob@gmail.com",
+    "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+    "created_at": "2026-01-31T19:11:54.153952"
+  },
+  {
+    "name": "sharu",
+    "email": "sharu@gmail.com",
+    "password": "f37f3f2b0dc57a86dee4ba6ff855283bb4d2f0dea1c5bd1b708853444c2ffcec",
+    "created_at": "2026-01-31T20:19:16.570047"
+  },
+  {
+    "name": "xyz",
+    "email": "xyz@gmail.com",
+    "password": "c5de86654f0e517de7569a0bf431390345b54ba288ba6cca378a76257f70a4bb",
+    "created_at": "2026-01-31T20:34:59.726666"
+  }
+]

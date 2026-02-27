@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Power BI Analytics | ML Hub</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/powerbi.css') }}">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- html2canvas for dashboard download -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="pb-header">
+    <h1>Power BI Dataset Analytics</h1>
+    <p>Upload your dataset and instantly view analytics</p>
+  </header>
+
+  <!-- MAIN -->
+  <main class="pb-container" id="dashboard">
+
+    <!-- UPLOAD -->
+    <div class="pb-card upload-card">
+      <input type="file" id="fileInput" accept=".csv">
+      <button id="uploadBtn">Upload & Analyze</button>
+    </div>
+
+    <!-- KPI GRID -->
+    <div class="pb-grid">
+      <div class="pb-card kpi">
+        <h3>Total Rows</h3>
+        <p id="totalRows">--</p>
+      </div>
+
+      <div class="pb-card kpi">
+        <h3>Total Columns</h3>
+        <p id="totalColumns">--</p>
+      </div>
+    </div>
+
+    <!-- CHART GRID -->
+    <div class="pb-grid">
+
+      <div class="pb-card chart-card">
+        <h3>Category Distribution (Pie)</h3>
+        <canvas id="pieChart"></canvas>
+      </div>
+
+      <div class="pb-card chart-card">
+        <h3>Category Count (Bar)</h3>
+        <canvas id="barChart"></canvas>
+      </div>
+
+    </div>
+
+    <div class="pb-grid">
+
+      <div class="pb-card chart-card">
+        <h3>Churn vs Non-Churn (Donut)</h3>
+        <canvas id="donutChart"></canvas>
+      </div>
+
+      <div class="pb-card chart-card">
+        <h3>Numeric Trend (Line)</h3>
+        <canvas id="lineChart"></canvas>
+      </div>
+
+    </div>
+
+    <!-- DOWNLOAD DASHBOARD -->
+    <div class="download-box">
+      <button id="downloadDashboardBtn">⬇ Download Dashboard</button>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="pb-footer">
+    © 2026 <b>ML Hub</b> | Power BI-Inspired Analytics
+  </footer>
+
+  <!-- JS -->
+  <script src="{{ url_for('static', filename='js/powerbi_dashboard.js') }}"></script>
+
+</body>
+</html>
