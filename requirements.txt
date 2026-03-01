@@ -6,4 +6,7 @@ scikit-learn
 matplotlib
 seaborn
 gunicorn
-
+reportlab
+joblib
+pillow
+python-dateutil
