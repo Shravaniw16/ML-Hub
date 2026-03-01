@@ -10,3 +10,7 @@ reportlab
 joblib
 pillow
 python-dateutil
+librosa
+soundfile
+opencv-python
+requests
