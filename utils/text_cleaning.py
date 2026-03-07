@@ -1,60 +1,101 @@
 import pandas as pd
 import re
 
+
 def clean_text(text):
+
     text = str(text).lower()
-    text = re.sub(r"http\S+", "", text)      # remove URLs
-    text = re.sub(r"[^a-z\s]", "", text)     # remove punctuation & numbers
-    text = re.sub(r"\s+", " ", text).strip()
+
+    text = re.sub(r"http\S+", "", text)       # remove URLs
+    text = re.sub(r"[^a-z\s]", "", text)      # remove punctuation & numbers
+    text = re.sub(r"\s+", " ", text).strip()  # remove extra spaces
+
     return text
 
 
 def process_text_file(filepath):
+
     df = pd.read_csv(filepath)
 
     # -----------------------------
-    # REQUIRED COLUMNS CHECK
+    # FIND TEXT COLUMN AUTOMATICALLY
     # -----------------------------
-    if "text" not in df.columns or "sentiment" not in df.columns:
-        raise ValueError("Dataset must contain 'text' and 'sentiment' columns")
+    possible_text_cols = ["text", "review", "comment", "sentence"]
+
+    text_col = None
+
+    for col in possible_text_cols:
+        if col in df.columns:
+            text_col = col
+            break
+
+    if text_col is None:
+        raise ValueError("Dataset must contain a text column like 'text', 'review', or 'comment'")
 
     # -----------------------------
-    # DROP DUPLICATES & NULLS
+    # OPTIONAL SENTIMENT COLUMN
+    # -----------------------------
+    sentiment_col = None
+
+    for col in ["sentiment", "label", "class"]:
+        if col in df.columns:
+            sentiment_col = col
+            break
+
+    # -----------------------------
+    # DROP DUPLICATES
     # -----------------------------
     df = df.drop_duplicates()
-    df = df.dropna(subset=["text", "sentiment"])
 
     # -----------------------------
     # CLEAN TEXT
     # -----------------------------
-    df["cleaned_text"] = df["text"].apply(clean_text)
+    df["original_text"] = df[text_col]
+
+    df["cleaned_text"] = df["original_text"].apply(clean_text)
 
     # -----------------------------
-    # SENTIMENT → LABEL (CRITICAL FIX)
+    # TEXT STATISTICS
     # -----------------------------
-    label_map = {
-        "positive": 1,
-        "negative": 0
-    }
+    df["word_count"] = df["cleaned_text"].apply(lambda x: len(x.split()))
 
-    df["label"] = (
-        df["sentiment"]
-        .astype(str)
-        .str.lower()
-        .map(label_map)
-    )
-
-    # Remove rows like "neutral"
-    df = df.dropna(subset=["label"])
-
-    # Convert to int
-    df["label"] = df["label"].astype(int)
-    print("DEBUG LABEL VALUES:", df["label"].unique())
-
+    df["char_count"] = df["cleaned_text"].apply(len)
 
     # -----------------------------
-    # FINAL CLEAN DATASET
+    # SENTIMENT → LABEL
     # -----------------------------
-    clean_df = df[["cleaned_text", "label"]]
+    if sentiment_col:
+
+        label_map = {
+            "positive": 1,
+            "negative": 0
+        }
+
+        df["label"] = (
+            df[sentiment_col]
+            .astype(str)
+            .str.lower()
+            .map(label_map)
+        )
+
+        df = df.dropna(subset=["label"])
+
+        df["label"] = df["label"].astype(int)
+
+    else:
+        df["label"] = None
+
+    # -----------------------------
+    # FINAL DATASET
+    # -----------------------------
+    clean_df = df[
+        [
+            "original_text",
+            "cleaned_text",
+            "word_count",
+            "char_count",
+            "label"
+        ]
+    ]
 
     return clean_df

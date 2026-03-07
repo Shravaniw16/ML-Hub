@@ -165,6 +165,7 @@ def upload_file():
 
         analysis["filepath"] = filepath
         analysis["columns"] = list(analysis["preview"][0].keys())
+        session["last_uploaded_dataset"] = filepath
 
         save_dataset({
             "user_id": session.get("email"),
@@ -207,37 +208,51 @@ def upload_file():
         return jsonify({"error": "Unsupported file type"}), 400
 @app.route("/clean-data", methods=["POST"])
 def clean_data():
+
     data = request.get_json()
     filepath = data.get("filepath")
 
     if not filepath or not os.path.exists(filepath):
         return jsonify({"error": "Dataset not found"}), 400
 
-    df = pd.read_csv(filepath)
+    try:
+        import numpy as np
 
-    # ---------------- CLEANING ----------------
-    df = df.drop_duplicates()
-    df = df.dropna()
+        df = pd.read_csv(filepath)
 
-    # Sentiment label normalization
-    if "sentiment" in df.columns:
-        df["label"] = df["sentiment"].map({
-            "positive": 1,
-            "negative": 0
+        # ---------------- CLEANING ----------------
+        df = df.drop_duplicates()
+
+        for col in df.columns:
+
+            if df[col].dtype in [np.float64, np.int64]:
+                df[col] = df[col].fillna(df[col].median())
+
+            else:
+                df[col] = df[col].fillna("Unknown")
+
+        # Sentiment label normalization
+        if "sentiment" in df.columns:
+            df["label"] = df["sentiment"].map({
+                "positive": 1,
+                "negative": 0
+            })
+
+        clean_path = filepath.replace(".csv", "_clean.csv")
+        df.to_csv(clean_path, index=False)
+
+        session["cleaned_dataset_path"] = clean_path
+
+        return jsonify({
+            "message": "Dataset cleaned successfully",
+            "cleaned_path": clean_path,
+            "rows": len(df),
+            "columns": list(df.columns)
         })
 
-    clean_path = filepath.replace(".csv", "_clean.csv")
-    df.to_csv(clean_path, index=False)
-
-    # 🔥 THIS IS THE MOST IMPORTANT LINE
-    session["cleaned_dataset_path"] = clean_path
-
-    return jsonify({
-        "message": "Dataset cleaned successfully",
-        "cleaned_path": clean_path,
-        "rows": len(df),
-        "columns": list(df.columns)
-    })
+    except Exception as e:
+        print("🔥 CLEAN ERROR:", e)
+        return jsonify({"error": str(e)}), 500
 @app.route("/dataset-analytics", methods=["GET"])
 def dataset_analytics():
     if "email" not in session:
@@ -309,6 +324,7 @@ from utils.text_cleaning import process_text_file
 
 @app.route("/clean-unstructured", methods=["POST"])
 def clean_unstructured():
+
     data = request.get_json()
     filepath = data.get("filepath")
 
@@ -316,6 +332,14 @@ def clean_unstructured():
         return jsonify({"error": "File not found"}), 400
 
     df = process_text_file(filepath)
+
+    # Save cleaned file
+    clean_path = filepath.replace(".csv", "_clean.csv")
+
+    df.to_csv(clean_path, index=False)
+
+    # SAVE FILE PATH IN SESSION
+    session["cleaned_dataset_path"] = clean_path
 
     preview = df.head(10).to_dict(orient="records")
 
@@ -353,29 +377,18 @@ def dashboard_dataset_data():
 from flask import send_file
 import uuid
 
-@app.route("/download-clean-csv", methods=["POST"])
+@app.route("/download-clean-csv", methods=["GET"])
 def download_clean_csv():
-    data = request.get_json()
-    filepath = data.get("filepath")
+
+    filepath = session.get("cleaned_dataset_path")
 
     if not filepath or not os.path.exists(filepath):
-        return jsonify({"error": "File not found"}), 400
+        return jsonify({"error": "Cleaned dataset not found"}), 400
 
-    # Clean again (safe)
-    df = process_text_file(filepath)
-
-    clean_filename = f"cleaned_{uuid.uuid4().hex[:6]}.csv"
-    clean_path = os.path.join(UPLOAD_FOLDER, clean_filename)
-    df.to_csv(clean_path, index=False)
-
-    # store for training/dashboard
-    session["cleaned_dataset_path"] = clean_path
-
-    # ✅ SEND CSV FILE (THIS IS THE KEY)
     return send_file(
-        clean_path,
+        filepath,
         as_attachment=True,
-        download_name="cleaned_unstructured_data.csv"
+        download_name="cleaned_dataset.csv"
     )
 
 from utils.powerbi_analysis import analyze_for_dashboard
@@ -689,6 +702,39 @@ def intro():
 @app.route("/index-page")
 def index_page():
     return render_template("index.html")
+import pandas as pd
+
+def suggest_target_column(filepath):
+    df = pd.read_csv(filepath)
+    df.columns = df.columns.str.strip()
+
+    # keywords that usually represent target columns
+    keywords = ["target", "label", "class", "churn", "outcome", "result"]
+
+    # 1️⃣ check column names first
+    for col in df.columns:
+        if any(k in col.lower() for k in keywords):
+            return col
+
+    # 2️⃣ check columns with small number of unique values
+    for col in df.columns:
+        unique_count = df[col].nunique()
+
+        if unique_count <= 5:
+            return col
+
+    # fallback
+    return df.columns[-1]
+@app.route("/suggest-target", methods=["POST"])
+def suggest_target():
+    data = request.json
+    filepath = data.get("filepath")
+
+    suggestion = suggest_target_column(filepath)
+
+    return jsonify({
+        "suggested_target": suggestion
+    })
 
 # ===============================
 # RUN

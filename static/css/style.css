@@ -1637,3 +1637,9 @@ table thead th {
     transform: translateY(0);
   }
 }
+.cleaning-right{
+    display:flex;
+    gap:20px;
+    justify-content:center;
+    margin-top:20px;
+}

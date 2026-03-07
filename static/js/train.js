@@ -1,19 +1,41 @@
+function suggestTarget(columns) {
+  const keywords = ["target","label","class","churn","outcome","result","Survived"];
+
+  // check column names first
+  for (let col of columns) {
+    const lower = col.toLowerCase();
+    if (keywords.some(k => lower.includes(k))) {
+      return col;
+    }
+  }
+
+  // fallback: choose column with few categories
+  return columns[columns.length - 1];
+}
 document.addEventListener("DOMContentLoaded", () => {
 
   /* =========================
      LOAD COLUMNS
   ========================= */
   const columns = JSON.parse(localStorage.getItem("columns"));
-  const targetSelect = document.getElementById("targetColumn");
+const targetSelect = document.getElementById("targetColumn");
 
-  if (columns && targetSelect) {
-    columns.forEach(col => {
-      const opt = document.createElement("option");
-      opt.value = col;
-      opt.textContent = col;
-      targetSelect.appendChild(opt);
-    });
+if (columns && targetSelect) {
+
+  columns.forEach(col => {
+    const opt = document.createElement("option");
+    opt.value = col;
+    opt.textContent = col;
+    targetSelect.appendChild(opt);
+  });
+
+  // ⭐ AUTO TARGET SUGGESTION
+  const suggested = suggestTarget(columns);
+  if (suggested) {
+    targetSelect.value = suggested;
   }
+
+}
 
   /* =========================
      MODEL OPTIONS
@@ -22,22 +44,41 @@ document.addEventListener("DOMContentLoaded", () => {
   const modelSelect = document.getElementById("modelSelect");
 
   function populateModels(type) {
-    modelSelect.innerHTML = `<option value="">-- Choose Model --</option>`;
 
-    if (type === "classification") {
-      modelSelect.innerHTML += `
-        <option value="logistic">Logistic Regression</option>
-        <option value="random_forest">Random Forest</option>
-      `;
-    }
+  modelSelect.innerHTML = `<option value="">-- Choose Model --</option>`;
 
-    if (type === "regression") {
-      modelSelect.innerHTML += `
-        <option value="linear">Linear Regression</option>
-        <option value="random_forest_reg">Random Forest Regressor</option>
-      `;
-    }
+  if (type === "classification") {
+
+    modelSelect.innerHTML += `
+      <option value="logistic">Logistic Regression</option>
+      <option value="random_forest">Random Forest</option>
+      <option value="knn">K-Nearest Neighbors</option>
+    `;
+
   }
+
+  if (type === "regression") {
+
+    modelSelect.innerHTML += `
+      <option value="linear">Linear Regression</option>
+      <option value="random_forest_reg">Random Forest Regressor</option>
+    `;
+
+  }
+
+  /* ⭐ ADD THIS PART */
+
+  if (type === "clustering") {
+
+    modelSelect.innerHTML += `
+      <option value="kmeans">K-Means Clustering</option>
+      <option value="dbscan">DBSCAN Clustering</option>
+      <option value="hierarchical">Hierarchical Clustering</option>
+    `;
+
+  }
+
+}
 
   modelRadios.forEach(radio => {
     radio.addEventListener("change", () => {

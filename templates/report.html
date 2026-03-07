@@ -53,6 +53,12 @@
         <img id="featureImportance" class="report-image" style="display:none;">
     </div>
 
+    <!-- ================= CLUSTER VISUALIZATION ================= -->
+<div class="report-card" id="clusterSection" style="display:none;">
+    <h2 class="section-title">Cluster Visualization</h2>
+    <img id="clusterChart" class="report-image">
+</div>
+
     <!-- ================= METRICS TABLE ================= -->
     <div class="report-card">
         <h2 class="section-title">Metrics Table</h2>
@@ -68,7 +74,8 @@
         </table>
     </div>
 
-    
+   
+
 
     <!-- ================= BUTTONS ================= -->
     <div class="report-buttons">
@@ -78,6 +85,9 @@
         <button class="btn-compact" onclick="downloadReport()">
             ⬇ Download Report
         </button>
+        <button class="btn-outline" onclick="window.location.href='/index-page'">
+        ⬆ Upload New Dataset
+    </button>
     </div>
 
 </div>
