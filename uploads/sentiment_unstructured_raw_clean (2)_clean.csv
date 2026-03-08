@@ -1,0 +1,16 @@
+sentiment,text,label
+positive,This product is amazing and works perfectly,1
+negative,Worst purchase ever totally waste of money,0
+neutral,Average experience nothing special,
+positive,Excellent service and very fast delivery,1
+negative,Very bad quality and poor customer support,0
+positive,I am extremely satisfied with this product,1
+negative,The item stopped working after two days,0
+positive,Highly recommend this to everyone,1
+negative,Not worth the price at all,0
+positive,Great value for money and awesome quality,1
+neutral,It is okay not too good not too bad,
+negative,Very disappointing experience,0
+positive,Loved the design and performance,1
+negative,Product arrived damaged and unusable,0
+positive,Customer support was very helpful,1

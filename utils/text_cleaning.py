@@ -2,20 +2,36 @@ import pandas as pd
 import re
 
 
+# =============================
+# TEXT CLEANING FUNCTION
+# =============================
 def clean_text(text):
 
     text = str(text).lower()
 
-    text = re.sub(r"http\S+", "", text)       # remove URLs
-    text = re.sub(r"[^a-z\s]", "", text)      # remove punctuation & numbers
-    text = re.sub(r"\s+", " ", text).strip()  # remove extra spaces
+    # remove urls
+    text = re.sub(r"http\S+", "", text)
+
+    # remove punctuation & numbers
+    text = re.sub(r"[^a-z\s]", "", text)
+
+    # remove extra spaces
+    text = re.sub(r"\s+", " ", text).strip()
 
     return text
 
 
+# =============================
+# MAIN PROCESS FUNCTION
+# =============================
 def process_text_file(filepath):
 
     df = pd.read_csv(filepath)
+
+    # -----------------------------
+    # NORMALIZE COLUMN NAMES
+    # -----------------------------
+    df.columns = df.columns.str.strip().str.lower()
 
     # -----------------------------
     # FIND TEXT COLUMN AUTOMATICALLY
@@ -30,10 +46,12 @@ def process_text_file(filepath):
             break
 
     if text_col is None:
-        raise ValueError("Dataset must contain a text column like 'text', 'review', or 'comment'")
+        raise ValueError(
+            "Dataset must contain a text column like 'text', 'review', 'comment', or 'sentence'"
+        )
 
     # -----------------------------
-    # OPTIONAL SENTIMENT COLUMN
+    # FIND SENTIMENT COLUMN (OPTIONAL)
     # -----------------------------
     sentiment_col = None
 
@@ -43,16 +61,30 @@ def process_text_file(filepath):
             break
 
     # -----------------------------
-    # DROP DUPLICATES
+    # REMOVE MISSING TEXT
+    # -----------------------------
+    df = df.dropna(subset=[text_col])
+
+    # Remove empty rows
+    df = df[df[text_col].astype(str).str.strip() != ""]
+
+    # -----------------------------
+    # REMOVE DUPLICATES
     # -----------------------------
     df = df.drop_duplicates()
 
     # -----------------------------
-    # CLEAN TEXT
+    # STORE ORIGINAL TEXT
     # -----------------------------
     df["original_text"] = df[text_col]
 
+    # -----------------------------
+    # CLEAN TEXT
+    # -----------------------------
     df["cleaned_text"] = df["original_text"].apply(clean_text)
+
+    # Remove rows that become empty after cleaning
+    df = df[df["cleaned_text"].str.strip() != ""]
 
     # -----------------------------
     # TEXT STATISTICS
@@ -78,6 +110,7 @@ def process_text_file(filepath):
             .map(label_map)
         )
 
+        # remove rows where label not mapped
         df = df.dropna(subset=["label"])
 
         df["label"] = df["label"].astype(int)
